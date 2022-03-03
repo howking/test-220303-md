@@ -3,22 +3,16 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <script src='https://cdn.jsdelivr.net/gh/rsms/markdown-wasm@v1.2.0/dist/markdown.js'></script>
     <title>test</title>
   </head>
   <body>
     <div id="content">...</div>
-    <script>
-     window["markdown"].ready.then(markdown => {
-        console.log(markdown.parse("# hello\n*world*"))
-        try{
-          fetch('./index.md') 
-            .then(response => response.text())
-            .then(result => document.getElementById('content').innerHTML = markdown.parse(result))
-        }catch(e){
-          console.log(e)
-        }
-     })
+    <script type="module">
+      const target = document.getElementById('content'),
+            contents = await (await fetch('./index.md')).text(),
+            markdown = await import('./markdown.es.js')
+      await markdown.ready
+      target.innerHTML=markdown.parse(contents)
     </script>
   </body>
 </html>
