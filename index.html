@@ -2,17 +2,11 @@
 <html lang="ja">
   <head>
     <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width,initial-scale=1">
-    <title>test</title>
-  </head>
-  <body>
-    <div id="content">...</div>
     <script type="module">
-      const target = document.getElementById('content'),
-            contents = await (await fetch('./index.md')).text(),
+      const contents = await (await fetch('./index.md')).text(),
             markdown = await import('./markdown.es.js')
       await markdown.ready
-      target.innerHTML=markdown.parse(contents)
+      document.body.innerHTML=markdown.parse(contents)
     </script>
-  </body>
+  </head>
 </html>
