@@ -3,8 +3,10 @@
   <head>
     <meta charset="utf-8">
     <script type="module">
-      const contents = await (await fetch('./index.md')).text(),
-            markdown = await import('./markdown.es.js')
+      const path = location.pathname,
+            file = path === '/' ? 'index' : path.replaceAll('/',''),
+            contents = await (await fetch(`/${file}.md`)).text(),
+            markdown = await import('/markdown.es.js')
       await markdown.ready
       document.body.innerHTML=markdown.parse(contents)
     </script>
